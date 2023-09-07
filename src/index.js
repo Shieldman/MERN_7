@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const carsRouter = require("./routes/cars");
 const ownersRouter = require("./routes/owners");
+const authRouter = require("./routes/auth")
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ app.disable("x-powered-by");
 
 app.use("/api/cars", carsRouter);
 app.use("/api/owners", ownersRouter);
+app.use("/api/auth", authRouter);
 
 //Controlador de rutas no encontradas
 app.use("*", (req, res, next) => {

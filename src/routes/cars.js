@@ -6,13 +6,14 @@ const {
   updateCarById,
   deleteCarById,
 } = require("../controllers/cars");
+const { hasValidAuthJwt } = require("../middlewares/authenticated");
 
 const carsRouter = express.Router();
 
 carsRouter.get("/", getAllCars);
 carsRouter.get("/:id", getCarById);
-carsRouter.post("/", createCar);
-carsRouter.put("/:id", updateCarById);
-carsRouter.delete("/:id", deleteCarById);
+carsRouter.post("/", hasValidAuthJwt, createCar);
+carsRouter.put("/:id", hasValidAuthJwt, updateCarById);
+carsRouter.delete("/:id", hasValidAuthJwt, deleteCarById);
 
 module.exports = carsRouter;
