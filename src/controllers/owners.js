@@ -28,7 +28,7 @@ const createOwner = async (req, res, next) => {
   try {
     const newOwner = new Owners({
       name: req.body.name,
-      players: req.body.players,
+      surname: req.body.surname,
       country: req.body.country,
       cars: req.body.cars,
     });
@@ -59,13 +59,13 @@ const getOwnerById = async (req, res, next) => {
 };
 
 const updateOwnerById = async (req, res, next) => {
-  const { name, players, country, cars } = req.body;
+  const { name, surname, country, cars } = req.body;
 
   try {
     const { id } = req.params;
     const owner = await Owners.findByIdAndUpdate(
       id,
-      { name, players, country },
+      { name, surname, country },
       { new: true }
     );
 

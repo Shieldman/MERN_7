@@ -23,7 +23,7 @@ const getAllCars = async (req, res, next) => {
 
 const createCar = async (req, res, next) => {
   try {
-    const { name, age, year, owners } = req.body;
+    const { name, color, year, owners } = req.body;
 
     // Check if the specified owner exists
     const existingOwner = await Owners.findById(owners);
@@ -33,7 +33,7 @@ const createCar = async (req, res, next) => {
 
     const newCar = new Cars({
       name,
-      age,
+      color,
       year,
       owners,
     });
@@ -71,13 +71,13 @@ const getCarById = async (req, res, next) => {
 };
 
 const updateCarById = async (req, res, next) => {
-  const { name, age, year, owner } = req.body;
+  const { name, color, year, owner } = req.body;
 
   try {
     const { id } = req.params;
     const car = await Cars.findByIdAndUpdate(
       id,
-      { name, age, year, owner },
+      { name, color, year, owner },
       { new: true }
     );
 
