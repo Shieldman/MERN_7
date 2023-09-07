@@ -2,6 +2,7 @@ require("dotenv").config(); //siempre inicialmente
 require("./config/db");
 const express = require("express");
 const cors = require("cors");
+const rateLimit = require("express-rate-limit")
 const carsRouter = require("./routes/cars");
 const ownersRouter = require("./routes/owners");
 const authRouter = require("./routes/auth")
@@ -14,6 +15,16 @@ app.use(
     origin: true,
   })
 );
+
+const limiter = rateLimit({
+  windowMs: 3 * 60 * 1000, // 3 minutes
+  max: 50, // Limit each IP to 50 requests per `window`
+  standardHeaders: false, // Disable the rate limit headers 
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  // store: ... , // Use an external store for more precise rate limiting
+});
+
+app.use(limiter);
 
 app.disable("x-powered-by");
 

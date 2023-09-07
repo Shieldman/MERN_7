@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken')
 const TOKEN_SECRET = "supersecret_123456?!";
 
 const signToken = (payload) => {
-    const token = jwt.sign({username: payload},TOKEN_SECRET, {expiresIn: "2 Days"});
+    const token = jwt.sign({email: payload},TOKEN_SECRET, {expiresIn: "1h"});
     return token;
 }
 
