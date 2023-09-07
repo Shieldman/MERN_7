@@ -118,10 +118,32 @@ const deleteCarById = async (req, res, next) => {
   }
 };
 
+const uploadCarPicture = async (req,res,next) => {
+ 
+ try {
+  console.log(req.body);
+  const { path } = req.file;
+  const { id } = req.params;
+  const updatedCar = await Cars.updateOne(
+    { _id: id },
+    { image: path },
+    {
+      returnNewDocument: true,
+      new: true,
+      strict: false,
+    }
+  );
+  res.status(201).json({ data: updatedCar });
+ } catch (err) {
+  res.status(500).json({data: err})
+ } 
+};
+
 module.exports = {
   getAllCars,
   createCar,
   getCarById,
   updateCarById,
   deleteCarById,
+  uploadCarPicture,
 };

@@ -1,7 +1,7 @@
 const express = require("express");
 const { registerUser, loginUser } = require("../controllers/users");
 const { hasValidAuthJwt } = require("../middlewares/authenticated");
-const uploadFile = require("../middlewares/uploadFile");
+const {uploadFile} = require("../middlewares/uploadFile");
 const { Users } = require("../models/mongo");
 
 const authRouter = express.Router();
