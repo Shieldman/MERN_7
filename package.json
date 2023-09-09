@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node .",
-    "dev": "node --watch ."
+    "dev": "node --watch .",
+    "build": "echo 'build command'"
   },
   "keywords": [],
   "author": "",

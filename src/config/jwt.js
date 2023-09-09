@@ -1,14 +1,12 @@
 var jwt = require('jsonwebtoken')
 
-const TOKEN_SECRET = "supersecret_123456?!";
-
 const signToken = (payload) => {
-    const token = jwt.sign({email: payload},TOKEN_SECRET, {expiresIn: "1h"});
+    const token = jwt.sign({email: payload},process.env.TOKEN_SECRET, {expiresIn: "1h"});
     return token;
 }
 
 const verifyToken = (token) =>{
-    const payload = jwt.verify(token,TOKEN_SECRET);
+    const payload = jwt.verify(token,process.env.TOKEN_SECRET);
     return payload;
 }
 

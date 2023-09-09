@@ -43,8 +43,8 @@ app.use((error, req, res, next) => {
 });
 
 //Esta parte la tenía en las variables del .env pero como lo tengo dentro del gitignore lo he cambiado al valor del puerto tal cual :)
-app.listen(4001, () => {
+app.listen(process.env.URL_PORT, () => {
   console.log(
-    `La aplicación está corriendo en la URL: http://localhost:4001`
+    `La aplicación está corriendo en la URL: http://localhost:${process.env.URL_PORT}`
   );
 });
