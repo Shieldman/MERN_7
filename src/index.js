@@ -25,7 +25,7 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
-app.enable('trust proxy')
+app.enable('trust proxy',true)
 
 app.disable("x-powered-by");
 
