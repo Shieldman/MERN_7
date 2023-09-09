@@ -1,0 +1,202 @@
+# API Documentation
+
+This documentation provides details on the API endpoints and functionalities of the provided Express.js application. The application consists of three routers: `ownersRouter`, `carsRouter`, and `authRouter`, each responsible for different aspects of the system.
+
+## Table of Contents
+
+1. [Owners API](#owners-api)
+2. [Cars API](#cars-api)
+3. [Authentication API](#authentication-api)
+4. [Controllers](#controllers)
+5. [Middlewares](#middlewares)
+6. [Models](#models)
+
+---
+
+## Owners API
+
+### 1. Get All Owners
+
+- **Endpoint:** `GET /api/owners`
+- **Description:** Retrieve a list of all owners.
+- **Response:**
+  - `200 OK` - Successful request. Returns a JSON object with a list of owners.
+  - `500 Internal Server Error` - Server error.
+
+### 2. Get Owner by ID
+
+- **Endpoint:** `GET /api/owners/:id`
+- **Description:** Retrieve an owner by their ID.
+- **Parameters:**
+  - `:id` (string) - The unique identifier of the owner.
+- **Response:**
+  - `200 OK` - Successful request. Returns a JSON object with owner details.
+  - `500 Internal Server Error` - Server error.
+
+### 3. Create Owner
+
+- **Endpoint:** `POST /api/owners`
+- **Description:** Create a new owner.
+- **Request Body:**
+  - `name` (string, required) - The name of the owner.
+  - `surname` (string, required) - The surname of the owner.
+  - `country` (string, required) - The country of the owner.
+  - `cars` (array) - An array of car IDs associated with the owner (optional).
+- **Response:**
+  - `201 Created` - Successful creation. Returns a JSON object with the created owner.
+  - `500 Internal Server Error` - Server error.
+
+### 4. Update Owner by ID
+
+- **Endpoint:** `PUT /api/owners/:id`
+- **Description:** Update an owner's details by their ID.
+- **Parameters:**
+  - `:id` (string) - The unique identifier of the owner.
+- **Request Body:**
+  - `name` (string) - Updated name of the owner (optional).
+  - `surname` (string) - Updated surname of the owner (optional).
+  - `country` (string) - Updated country of the owner (optional).
+  - `cars` (array) - Updated array of car IDs associated with the owner (optional).
+- **Response:**
+  - `200 OK` - Successful update. Returns a JSON object with the updated owner details.
+  - `500 Internal Server Error` - Server error.
+
+### 5. Delete Owner by ID
+
+- **Endpoint:** `DELETE /api/owners/:id`
+- **Description:** Delete an owner by their ID. Will not delete if the owner has associated cars.
+- **Parameters:**
+  - `:id` (string) - The unique identifier of the owner.
+- **Response:**
+  - `200 OK` - Successful deletion.
+  - `409 Conflict` - Owner has associated cars, cannot be deleted until cars are removed.
+  - `500 Internal Server Error` - Server error.
+
+---
+
+## Cars API
+
+### 1. Get All Cars
+
+- **Endpoint:** `GET /api/cars`
+- **Description:** Retrieve a list of all cars.
+- **Response:**
+  - `200 OK` - Successful request. Returns a JSON object with a list of cars.
+  - `500 Internal Server Error` - Server error.
+
+### 2. Get Car by ID
+
+- **Endpoint:** `GET /api/cars/:id`
+- **Description:** Retrieve a car by its ID.
+- **Parameters:**
+  - `:id` (string) - The unique identifier of the car.
+- **Response:**
+  - `200 OK` - Successful request. Returns a JSON object with car details.
+  - `500 Internal Server Error` - Server error.
+
+### 3. Create Car
+
+- **Endpoint:** `POST /api/cars`
+- **Description:** Create a new car.
+- **Request Body:**
+  - Specify car details in the request body.
+- **Response:**
+  - `201 Created` - Successful creation. Returns a JSON object with the created car.
+  - `500 Internal Server Error` - Server error.
+
+### 4. Update Car by ID
+
+- **Endpoint:** `PUT /api/cars/:id`
+- **Description:** Update a car's details by its ID.
+- **Parameters:**
+  - `:id` (string) - The unique identifier of the car.
+- **Request Body:**
+  - Specify updated car details in the request body.
+- **Response:**
+  - `200 OK` - Successful update. Returns a JSON object with the updated car details.
+  - `500 Internal Server Error` - Server error.
+
+### 5. Delete Car by ID
+
+- **Endpoint:** `DELETE /api/cars/:id`
+- **Description:** Delete a car by its ID.
+- **Parameters:**
+  - `:id` (string) - The unique identifier of the car.
+- **Response:**
+  - `200 OK` - Successful deletion.
+  - `500 Internal Server Error` - Server error.
+
+### 6. Upload Car Picture
+
+- **Endpoint:** `POST /api/cars/image/:id`
+- **Description:** Upload a picture for a specific car by its ID.
+- **Parameters:**
+  - `:id` (string) - The unique identifier of the car.
+- **Request Body:**
+  - Multipart/form-data with an image file (key: `image`).
+- **Response:**
+  - `201 Created` - Successful image upload. Returns a JSON object with the path to the uploaded image.
+  - `500 Internal Server Error` - Server error.
+
+---
+
+## Authentication API
+
+### 1. User Registration
+
+- **Endpoint:** `POST /api/auth/register`
+- **Description:** Register a new user.
+- **Request Body:**
+  - `email` (string, required) - The email address of the user.
+  - `password` (string, required) - The user's password. Must meet certain password criteria.
+- **Response:**
+  - `200 OK` - Successful registration. Returns a JSON object with the registered user's email and password (hashed).
+  - `400 Bad Request` - Password does not meet criteria or user already exists.
+  - `500 Internal Server Error` - Server error.
+
+### 2. User Login
+
+- **Endpoint:** `POST /api/auth/login`
+- **Description:** Authenticate and log in a user.
+- **Request Body:**
+  - `email` (string, required) - The email address of the user.
+  - `password` (string, required) - The user's password.
+- **Response:**
+  - `200 OK` - Successful login. Returns a JSON object with a JWT token for authentication.
+  - `401 Unauthorized` - User does not exist or incorrect email/password.
+  - `500 Internal Server Error` - Server error.
+
+### 3. Upload User Avatar
+
+- **Endpoint:** `POST /api/auth/avatar`
+- **Description
+
+:** Upload a user's avatar image.
+- **Request Body:**
+  - Multipart/form-data with an image file (key: `avatar`).
+- **Response:**
+  - `201 Created` - Successful image upload. Returns a JSON object with the path to the uploaded avatar image.
+  - `500 Internal Server Error` - Server error.
+
+---
+
+## Controllers
+
+- `owners.js`: Contains controller functions for handling owner-related requests.
+- `cars.js`: Contains controller functions for handling car-related requests.
+- `users.js`: Contains controller functions for user registration and login.
+
+---
+
+## Middlewares
+
+- `authenticated.js`: Provides JWT authentication middleware for routes.
+- `uploadFile.js`: Handles file uploads, including avatars and car pictures.
+
+---
+
+## Models
+
+- `mongo.js`: Defines the data models for Owners, Cars, and Users.
+
+---
