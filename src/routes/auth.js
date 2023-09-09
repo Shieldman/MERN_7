@@ -8,11 +8,7 @@ const authRouter = express.Router();
 
 authRouter.post("/register", registerUser);
 authRouter.get("/login", loginUser);
-authRouter.post(
-  "/avatar",
-  hasValidAuthJwt,
-  uploadFile.single("avatar"),
-  async (req, res, next) => {
+authRouter.post("/avatar",hasValidAuthJwt,uploadFile.single("avatar"), async (req, res, next) => {
     const { path } = req.file;
     const { email } = req.user;
 

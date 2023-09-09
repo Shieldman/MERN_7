@@ -121,7 +121,6 @@ const deleteCarById = async (req, res, next) => {
 const uploadCarPicture = async (req,res,next) => {
  
  try {
-  console.log(req.body);
   const { path } = req.file;
   const { id } = req.params;
   const updatedCar = await Cars.updateOne(
@@ -133,7 +132,7 @@ const uploadCarPicture = async (req,res,next) => {
       strict: false,
     }
   );
-  res.status(201).json({ data: updatedCar });
+  res.status(201).json({ data: path });
  } catch (err) {
   res.status(500).json({data: err})
  } 

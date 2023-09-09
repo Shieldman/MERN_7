@@ -18,6 +18,6 @@ carsRouter.get("/:id", getCarById);
 carsRouter.post("/", hasValidAuthJwt, createCar);
 carsRouter.put("/:id", hasValidAuthJwt, updateCarById);
 carsRouter.delete("/:id", hasValidAuthJwt, deleteCarById);
-carsRouter.post("/image/:id", hasValidAuthJwt,uploadCarFile.single('car'),uploadCarPicture);
+carsRouter.post("/image/:id", hasValidAuthJwt,uploadCarFile.single('image'),uploadCarPicture);
 
 module.exports = carsRouter;
